@@ -1,0 +1,28 @@
+---
+- name: Register RHSM with pool ID
+  become: true
+  redhat_subscription:
+    password: "{{ rhsm_password }}"
+    pool_ids: 
+     - "{{ rhsm_pool }}"
+    state: present
+    username: "{{ rhsm_user }}"
+  when:
+    - rhsm_pool is defined
+
+- name: Register RHSM without pool ID
+  become: true
+  redhat_subscription:
+    password: "{{ rhsm_password }}"
+    pool: "*Openshift*"
+    state: present
+    username: "{{ rhsm_user }}"
+  when:
+    - rhsm_pool is not defined
+
+- name: Enable RHSM repositories
+  become: true
+  rhsm_repository:
+    name: "{{ item }}"
+    state: enabled
+  with_items: "{{ rhsm_repos }}"

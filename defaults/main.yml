@@ -1,0 +1,24 @@
+---
+# defaults file for ocp-3.11-git
+rhsm_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.11-rpms
+  - rhel-7-server-ansible-2.9-rpms
+
+github_repos:
+  - { branch: master, project: cakephp-ex, repo: sclorg }
+  - { branch: master, project: httpd-ex, repo: sclorg }
+  - { branch: master, project: django-ex, repo: sclorg }
+  - { branch: master, project: nodejs-ex, repo: sclorg }
+  - { branch: master, project: rails-ex, repo: sclorg }
+  - { branch: master, project: ruby-ex, repo: sclorg }
+  - { branch: master, project: s2i-nodejs-container, repo: sclorg }
+  - { branch: master, project: s2i-python-container, repo: sclorg }
+  - { branch: master, project: nginx-ex, repo: sclorg }
+  - { branch: master, project: container-common-scripts, repo: sclorg }
+  - { branch: master, project: image-scanning-signing-service, repo: redhat-cop }
+  - { branch: master, project: openshift-toolkit, repo: redhat-cop }
+  - { branch: master, project: image-inspector, repo: openshift }
+  - { branch: devel, project: RHEL7-CIS, repo: MindPointGroup }
+  - { branch: master, project: RHEL7-STIG, repo: MindPointGroup }

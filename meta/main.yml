@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Red Hat Consulting
+  description: Role to copy all required OCP 3.11 git repos to local disk for disconnected installation
+  company: Red Hat, Inc.
+  issue_tracker_url: https://github.com/vriosmanno-rh/ocp-3.11-git/issues
+  license: license (GPL-2.0-or-later)
+  min_ansible_version: 2.5
+  platforms:
+  - name: EL
+    versions:
+      - 7
+  galaxy_tags:
+    - github
+    - openshift
+    - disconnected
+dependencies: []
+  

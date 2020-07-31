@@ -1,0 +1,50 @@
+---
+# tasks file for ocp-3.11-git
+- name: Create directory tree if it doesn't exist
+  file:
+    mode: '0755'
+    path: "{{ item }}"
+    recurse: no
+    state: directory
+  with_items:
+    - "{{ content_sync_path }}/OCP/github"
+    - "{{ temp_sync_path }}/github"
+
+- name: Find previous content-sync repo
+  find:
+    paths: "{{ content_sync_path }}/OCP/github"
+    patterns: "*.zip"
+  register: repos_to_delete
+
+- name: Delete previous content-sync repo
+  file:
+    paths: "{{ item.path }}"
+    state: absent
+  with_items: "{{ repos_to_delete.files }}"
+
+- name: RHSM subscribe
+  include_tasks: rhel-subscribe.yml
+  when:
+    - ansible_distribution == 'RedHat'
+
+- name: Install git
+  yum:
+    name: git
+    state: latest
+
+- name: Download github repos
+  git:
+    accept_hostkey: true
+    archive: "{{ content_sync_path }}/OCP/github/{{ item.project }}.tar.gz"
+    dest: "{{ temp_sync_path }}/github/{{ item.project }}"
+    repo: https://github.com/{{ item.repo }}/{{ item.project }}.git
+    version: "{{ item.branch }}"
+  with_items: "{{ github_repos }}"
+
+- name: Cleanup temp destination
+  file:
+    path: "{{ temp_sync_path }}/github"
+    state: absent
+  tags:
+    - never
+    - cleanup
